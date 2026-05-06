@@ -1,53 +1,40 @@
 <div class="page-content">
 
-  <div class="page-header">
-    <h2>Wajib Pajak</h2>
-    <span>{{ list.length }} data</span>
+  <div class="page-header p-component">
+    <h2 class="page-title">Wajib Pajak</h2>
+    <span class="page-sub">{{ list.length }} data</span>
   </div>
 
   <!-- FORM -->
-<p-card styleClass="form-card">
-  <div class="form-header">
-    <span class="form-title">Tambah Wajib Pajak</span>
-  </div>
-
-  <div class="form-grid">
-
-    <div class="field">
-      <label>Nama</label>
-      <input type="text"
-             pInputText
-             placeholder="Masukkan nama"
-             [(ngModel)]="pajak.form.nama" />
+  <p-card styleClass="form-card">
+    <div class="form-header">
+      <span class="form-title">Tambah Wajib Pajak</span>
     </div>
 
-    <div class="field">
-      <label>NPWP</label>
-      <input type="text"
-             pInputText
-             placeholder="00.000.000.0-000.000"
-             [(ngModel)]="pajak.form.npwp" />
-    </div>
+    <div class="form-grid">
 
-    <div class="field">
-      <label>Penghasilan</label>
-      <input type="number"
-             pInputText
-             [(ngModel)]="pajak.form.penghasilan" />
-    </div>
+      <div class="field">
+        <label>Nama</label>
+        <input type="text" pInputText placeholder="Masukkan nama" [(ngModel)]="pajak.form.nama" />
+      </div>
 
-    <div class="field action">
-      <button pButton
-              type="button"
-              label="Tambah"
-              icon="pi pi-plus"
-              class="p-button-success"
-              (click)="add()">
-      </button>
-    </div>
+      <div class="field">
+        <label>NPWP</label>
+        <input type="text" pInputText placeholder="00.000.000.0-000.000" [(ngModel)]="pajak.form.npwp" />
+      </div>
 
-  </div>
-</p-card>
+      <div class="field">
+        <label>Penghasilan</label>
+        <input type="number" pInputText [(ngModel)]="pajak.form.penghasilan" />
+      </div>
+
+      <div class="field action">
+        <button pButton type="button" label="Tambah" icon="pi pi-plus" class="p-button-success" (click)="add()">
+        </button>
+      </div>
+
+    </div>
+  </p-card>
 
   <!-- TABLE -->
   <p-card styleClass="mt-3">
@@ -59,16 +46,73 @@
           <th>NPWP</th>
           <th class="text-right">Penghasilan</th>
           <th class="text-right">Pajak (10%)</th>
+          <th style="width:140px; text-align:right;">Aksi</th>
         </tr>
       </thead>
 
       <tbody>
         <tr *ngFor="let wp of list; let i = index">
+
           <td>{{ i + 1 }}</td>
-          <td>{{ wp.nama }}</td>
-          <td>{{ wp.npwp }}</td>
-          <td class="text-right">{{ formatRupiah(wp.penghasilan) }}</td>
-          <td class="text-right">{{ formatRupiah(hitungPajak(wp.penghasilan)) }}</td>
+
+          <!-- NAMA -->
+          <td>
+            <ng-container *ngIf="editingId !== wp.id; else editNama">
+              {{ wp.nama }}
+            </ng-container>
+            <ng-template #editNama>
+              <input type="text" pInputText [(ngModel)]="editCache.nama" />
+            </ng-template>
+          </td>
+
+          <!-- NPWP -->
+          <td>
+            <ng-container *ngIf="editingId !== wp.id; else editNpwp">
+              {{ wp.npwp }}
+            </ng-container>
+            <ng-template #editNpwp>
+              <input type="text" pInputText [(ngModel)]="editCache.npwp" />
+            </ng-template>
+          </td>
+
+          <!-- PENGHASILAN -->
+          <td class="text-right">
+            <ng-container *ngIf="editingId !== wp.id; else editPenghasilan">
+              {{ formatRupiah(wp.penghasilan) }}
+            </ng-container>
+            <ng-template #editPenghasilan>
+              <input type="number" pInputText [(ngModel)]="editCache.penghasilan" />
+            </ng-template>
+          </td>
+
+          <!-- PAJAK -->
+          <td class="text-right">
+            {{ formatRupiah(hitungPajak(editingId === wp.id ? editCache.penghasilan : wp.penghasilan)) }}
+          </td>
+
+          <!-- ACTION -->
+          <td style="width: 140px; text-align: right;">
+
+            <!-- MODE NORMAL -->
+            <ng-container *ngIf="editingId !== wp.id">
+              <button pButton icon="pi pi-pencil" class="p-button-text" (click)="startEdit(wp)">
+              </button>
+            </ng-container>
+
+            <button pButton icon="pi pi-trash" class="p-button-text p-button-danger" (click)="delete(wp.id)">
+            </button>
+
+            <!-- MODE EDIT -->
+            <ng-container *ngIf="editingId === wp.id">
+              <button pButton icon="pi pi-check" class="p-button-text p-button-success" (click)="saveEdit()">
+              </button>
+
+              <button pButton icon="pi pi-times" class="p-button-text p-button-danger" (click)="cancelEdit()">
+              </button>
+            </ng-container>
+
+          </td>
+
         </tr>
       </tbody>
 
