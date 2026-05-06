@@ -1,0 +1,86 @@
+<div class="page-content">
+
+  <div class="page-header">
+    <h2>Wajib Pajak</h2>
+    <span>{{ list.length }} data</span>
+  </div>
+
+  <!-- FORM -->
+<p-card styleClass="form-card">
+  <div class="form-header">
+    <span class="form-title">Tambah Wajib Pajak</span>
+  </div>
+
+  <div class="form-grid">
+
+    <div class="field">
+      <label>Nama</label>
+      <input type="text"
+             pInputText
+             placeholder="Masukkan nama"
+             [(ngModel)]="pajak.form.nama" />
+    </div>
+
+    <div class="field">
+      <label>NPWP</label>
+      <input type="text"
+             pInputText
+             placeholder="00.000.000.0-000.000"
+             [(ngModel)]="pajak.form.npwp" />
+    </div>
+
+    <div class="field">
+      <label>Penghasilan</label>
+      <input type="number"
+             pInputText
+             [(ngModel)]="pajak.form.penghasilan" />
+    </div>
+
+    <div class="field action">
+      <button pButton
+              type="button"
+              label="Tambah"
+              icon="pi pi-plus"
+              class="p-button-success"
+              (click)="add()">
+      </button>
+    </div>
+
+  </div>
+</p-card>
+
+  <!-- TABLE -->
+  <p-card styleClass="mt-3">
+    <table class="djp-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nama</th>
+          <th>NPWP</th>
+          <th class="text-right">Penghasilan</th>
+          <th class="text-right">Pajak (10%)</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let wp of list; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ wp.nama }}</td>
+          <td>{{ wp.npwp }}</td>
+          <td class="text-right">{{ formatRupiah(wp.penghasilan) }}</td>
+          <td class="text-right">{{ formatRupiah(hitungPajak(wp.penghasilan)) }}</td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="3"><b>Total</b></td>
+          <td class="text-right"><b>{{ formatRupiah(totalPenghasilan) }}</b></td>
+          <td class="text-right"><b>{{ formatRupiah(totalPajak) }}</b></td>
+        </tr>
+      </tfoot>
+
+    </table>
+  </p-card>
+
+</div>

@@ -1,29 +1,23 @@
-─── NAVBAR ───────────────────────────────────────
-:host ::ng-deep .djp-navbar {
-  border-radius: 0;
-  border-left: none;
-  border-right: none;
-  border-top: none;
-  padding: 0.5rem 1.5rem;
-}
-
-.navbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-color);
-}
-
-/* ─── PAGE ───────────────────────────────────────── */
 .page-content {
   padding: 1.5rem;
   background: var(--surface-ground);
   min-height: calc(100vh - 60px);
 }
 
-/* ─── STATS GRID ─────────────────────────────────── */
+.page-header { margin-bottom: 1.5rem; }
+
+.page-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0 0 0.25rem;
+}
+
+.page-sub {
+  font-size: 0.85rem;
+  color: var(--text-color-secondary);
+}
+
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -35,7 +29,7 @@
   .stats-grid { grid-template-columns: 1fr; }
 }
 
-:host ::ng-deep .stat-card-wrap .p-card-body  { padding: 1rem 1.25rem; }
+:host ::ng-deep .stat-card-wrap .p-card-body    { padding: 1rem 1.25rem; }
 :host ::ng-deep .stat-card-wrap .p-card-content { padding: 0; }
 
 .stat-card {
@@ -45,11 +39,7 @@
   gap: 1rem;
 }
 
-.stat-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
+.stat-info { display: flex; flex-direction: column; gap: 0.3rem; }
 
 .stat-label {
   font-size: 0.72rem;
@@ -81,7 +71,6 @@
 .icon-teal  { background: #d1fae5; color: #065f46; }
 .icon-amber { background: #fef3c7; color: #92400e; }
 
-/* ─── TABLE CARD ─────────────────────────────────── */
 :host ::ng-deep .table-card { border-radius: 10px; overflow: hidden; }
 :host ::ng-deep .table-card .p-card-body    { padding: 0; }
 :host ::ng-deep .table-card .p-card-content { padding: 0; }
@@ -105,23 +94,9 @@
 
 .card-title i { color: var(--primary-color); }
 
-.record-count {
-  font-size: 0.75rem;
-  padding: 0.2rem 0.65rem;
-  border-radius: 99px;
-  background: var(--surface-hover);
-  color: var(--text-color-secondary);
-  border: 1px solid var(--surface-border);
-}
-
-/* ─── TABLE ──────────────────────────────────────── */
 .table-wrapper { overflow-x: auto; }
 
-.djp-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.875rem;
-}
+.djp-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
 
 .djp-table thead tr {
   background: var(--surface-hover);
@@ -148,22 +123,10 @@
 .djp-table tbody tr:last-child td { border-bottom: none; }
 .djp-table tbody tr:hover td { background: var(--surface-hover); }
 
-.tfoot-row td {
-  border-top: 2px solid var(--surface-border);
-  background: var(--surface-hover);
-  padding: 0.85rem 1.25rem;
-}
-
 .text-right { text-align: right !important; }
 .text-muted { color: var(--text-color-secondary); }
 
-/* ─── ROW ELEMENTS ───────────────────────────────── */
-.wp-name {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-weight: 500;
-}
+.wp-name { display: flex; align-items: center; gap: 0.75rem; font-weight: 500; }
 
 .avatar {
   width: 30px;
@@ -188,9 +151,4 @@
   padding: 0.2rem 0.6rem;
   border-radius: 6px;
   white-space: nowrap;
-}
-
-.pajak-badge--total {
-  background: #fde68a;
-  color: #78350f;
 }

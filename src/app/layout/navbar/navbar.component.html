@@ -1,0 +1,16 @@
+<p-menubar [model]="items" styleClass="djp-navbar">
+  <ng-template pTemplate="start">
+    <div class="navbar-brand">
+      <i class="pi pi-building" style="font-size: 1.1rem;"></i>
+      <span>DJP Dashboard</span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <button
+      pButton
+      icon="pi pi-user"
+      label="Profil"
+      class="p-button-text p-button-secondary p-button-sm"
+    ></button>
+  </ng-template>
+</p-menubar>

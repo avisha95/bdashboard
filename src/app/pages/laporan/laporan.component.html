@@ -1,0 +1,102 @@
+<div class="page-content">
+
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Laporan</h2>
+      <span class="page-sub">Rekapitulasi pajak seluruh wajib pajak</span>
+    </div>
+  </div>
+
+  <!-- SUMMARY CARDS -->
+  <div class="stats-grid">
+    <p-card styleClass="stat-card-wrap">
+      <div class="stat-card">
+        <div class="stat-info">
+          <span class="stat-label">Total WP</span>
+          <span class="stat-value">{{ list.length }}</span>
+        </div>
+        <div class="stat-icon icon-blue"><i class="pi pi-users"></i></div>
+      </div>
+    </p-card>
+
+    <p-card styleClass="stat-card-wrap">
+      <div class="stat-card">
+        <div class="stat-info">
+          <span class="stat-label">Total Penghasilan</span>
+          <span class="stat-value">{{ formatRupiah(totalPenghasilan) }}</span>
+        </div>
+        <div class="stat-icon icon-teal"><i class="pi pi-wallet"></i></div>
+      </div>
+    </p-card>
+
+    <p-card styleClass="stat-card-wrap">
+      <div class="stat-card">
+        <div class="stat-info">
+          <span class="stat-label">Total Pajak</span>
+          <span class="stat-value">{{ formatRupiah(totalPajak) }}</span>
+        </div>
+        <div class="stat-icon icon-amber"><i class="pi pi-percentage"></i></div>
+      </div>
+    </p-card>
+  </div>
+
+  <!-- TABEL LAPORAN -->
+  <p-card styleClass="table-card">
+    <ng-template pTemplate="header">
+      <div class="card-header">
+        <div class="card-title">
+          <i class="pi pi-chart-bar"></i>
+          <span>Rekapitulasi Per Wajib Pajak</span>
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="table-wrapper">
+      <table class="djp-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nama</th>
+            <th class="text-right">Penghasilan</th>
+            <th class="text-right">Pajak (10%)</th>
+            <th class="text-right">Porsi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let wp of list; let i = index">
+            <td class="text-muted">{{ i + 1 }}</td>
+            <td>
+              <div class="wp-name">
+                <div class="avatar">{{ wp.nama.charAt(0) }}</div>
+                {{ wp.nama }}
+              </div>
+            </td>
+            <td class="text-right">{{ formatRupiah(wp.penghasilan) }}</td>
+            <td class="text-right">
+              <span class="pajak-badge">{{ formatRupiah(hitungPajak(wp.penghasilan)) }}</span>
+            </td>
+            <td class="text-right">
+              <div class="porsi-wrap">
+                <div class="porsi-bar">
+                  <div class="porsi-fill" [style.width]="getPersen(wp.penghasilan)"></div>
+                </div>
+                <span class="porsi-label">{{ getPersen(wp.penghasilan) }}</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="tfoot-row">
+            <td colspan="2" class="text-muted" style="font-weight: 600;">Total</td>
+            <td class="text-right" style="font-weight: 700;">{{ formatRupiah(totalPenghasilan) }}</td>
+            <td class="text-right">
+              <span class="pajak-badge pajak-badge--total">{{ formatRupiah(totalPajak) }}</span>
+            </td>
+            <td class="text-right text-muted">100%</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </p-card>
+
+</div>
