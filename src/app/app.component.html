@@ -1,2 +1,19 @@
-<app-navbar></app-navbar>
+<!-- NAVBAR -->
+<app-navbar *ngIf="isLoggedIn"></app-navbar>
+
+<!-- PAGE -->
 <router-outlet></router-outlet>
+
+<!-- STATUS -->
+<div
+  *ngIf="isLoggedIn"
+  style="text-align:center; margin-top:50px;"
+>
+
+  <!-- <h2>Status Supabase</h2>
+
+  <p [style.color]="isConnected ? 'green' : 'red'">
+    {{ message }}
+  </p> -->
+
+</div>

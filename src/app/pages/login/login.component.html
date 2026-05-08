@@ -1,0 +1,32 @@
+<div class="login-page">
+
+  <p-card styleClass="login-card">
+
+    <div class="login-header">
+
+      <h2>Login</h2>
+
+      <span>
+        Login menggunakan akun Google
+      </span>
+
+    </div>
+
+    <div class="login-actions">
+
+      <button
+        pButton
+        type="button"
+        label="Login dengan Google"
+        icon="pi pi-google"
+        class="p-button-danger login-btn"
+        (click)="loginGoogle()"
+        [loading]="loading"
+      >
+      </button>
+
+    </div>
+
+  </p-card>
+
+</div>

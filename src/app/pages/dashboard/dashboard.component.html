@@ -9,56 +9,86 @@
   <div class="stats-grid">
 
     <p-card styleClass="stat-card-wrap">
+
       <div class="stat-card">
+
         <div class="stat-info">
           <span class="stat-label">Total Wajib Pajak</span>
-          <span class="stat-value">{{ pajak.getAll().length }}</span>
+          <span class="stat-value">
+            {{ list.length }}
+          </span>
         </div>
+
         <div class="stat-icon icon-blue">
           <i class="pi pi-users"></i>
         </div>
+
       </div>
+
     </p-card>
 
     <p-card styleClass="stat-card-wrap">
+
       <div class="stat-card">
+
         <div class="stat-info">
           <span class="stat-label">Total Penghasilan</span>
-          <span class="stat-value">{{ pajak.formatRupiah(pajak.getTotalPenghasilan()) }}</span>
+
+          <span class="stat-value">
+            {{ formatRupiah(totalPenghasilan) }}
+          </span>
         </div>
+
         <div class="stat-icon icon-teal">
           <i class="pi pi-wallet"></i>
         </div>
+
       </div>
+
     </p-card>
 
     <p-card styleClass="stat-card-wrap">
+
       <div class="stat-card">
+
         <div class="stat-info">
           <span class="stat-label">Total Pajak (10%)</span>
-          <span class="stat-value">{{ pajak.formatRupiah(pajak.getTotalPajak()) }}</span>
+
+          <span class="stat-value">
+            {{ formatRupiah(totalPajak) }}
+          </span>
         </div>
+
         <div class="stat-icon icon-amber">
           <i class="pi pi-percentage"></i>
         </div>
+
       </div>
+
     </p-card>
 
   </div>
 
-  <!-- TABEL RINGKAS -->
+  <!-- TABEL -->
   <p-card styleClass="table-card">
+
     <ng-template pTemplate="header">
+
       <div class="card-header">
+
         <div class="card-title">
           <i class="pi pi-table"></i>
           <span>Data Wajib Pajak</span>
         </div>
+
       </div>
+
     </ng-template>
 
     <div class="table-wrapper">
+
       <table class="djp-table">
+
         <thead>
           <tr>
             <th>#</th>
@@ -67,23 +97,49 @@
             <th class="text-right">Pajak</th>
           </tr>
         </thead>
+
         <tbody>
-          <tr *ngFor="let wp of pajak.getAll(); let i = index">
-            <td class="text-muted">{{ i + 1 }}</td>
+
+          <tr *ngFor="let wp of list; let i = index">
+
+            <td class="text-muted">
+              {{ i + 1 }}
+            </td>
+
             <td>
+
               <div class="wp-name">
-                <div class="avatar">{{ wp.nama.charAt(0) }}</div>
+
+                <div class="avatar">
+                  {{ wp.nama.charAt(0) }}
+                </div>
+
                 {{ wp.nama }}
+
               </div>
+
             </td>
-            <td class="text-right">{{ pajak.formatRupiah(wp.penghasilan) }}</td>
+
             <td class="text-right">
-              <span class="pajak-badge">{{ pajak.formatRupiah(pajak.hitungPajak(wp.penghasilan)) }}</span>
+              {{ formatRupiah(wp.penghasilan) }}
             </td>
+
+            <td class="text-right">
+
+              <span class="pajak-badge">
+                {{ formatRupiah(hitungPajak(wp.penghasilan)) }}
+              </span>
+
+            </td>
+
           </tr>
+
         </tbody>
+
       </table>
+
     </div>
+
   </p-card>
 
 </div>

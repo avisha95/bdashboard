@@ -1,25 +1,84 @@
-import { Component } from '@angular/core';
-import { PajakService, WajibPajak } from '../../services/pajak.service';
+import { Component, OnInit } from '@angular/core';
+import { SupabaseService } from '../../services/supabase.service';
+import { WajibPajak } from '../../services/pajak.service';
 
 @Component({
   selector: 'app-laporan',
   templateUrl: './laporan.component.html',
   styleUrls: ['./laporan.component.css'],
 })
-export class LaporanComponent {
+export class LaporanComponent implements OnInit {
+
   list: WajibPajak[] = [];
 
-  constructor(private pajak: PajakService) {
-    this.list = this.pajak.getAll();
+  constructor(private supabase: SupabaseService) {}
+
+  // =========================
+  // 🚀 LOAD DATA
+  // =========================
+  async ngOnInit() {
+    await this.loadData();
   }
 
-  get totalPenghasilan() { return this.list.reduce((a, b) => a + b.penghasilan, 0); }
-  get totalPajak()       { return this.totalPenghasilan * 0.1; }
+  async loadData() {
 
-  formatRupiah(v: number) { return this.pajak.formatRupiah(v); }
-  hitungPajak(v: number)  { return this.pajak.hitungPajak(v); }
+    const { data, error } = await this.supabase.getWajibPajak();
 
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    this.list = data || [];
+  }
+
+  // =========================
+  // 📊 TOTAL PENGHASILAN
+  // =========================
+  get totalPenghasilan(): number {
+
+    return this.list.reduce(
+      (a, b) => a + Number(b.penghasilan),
+      0
+    );
+  }
+
+  // =========================
+  // 💰 TOTAL PAJAK
+  // =========================
+  get totalPajak(): number {
+
+    return this.totalPenghasilan * 0.1;
+  }
+
+  // =========================
+  // 💵 FORMAT RUPIAH
+  // =========================
+  formatRupiah(v: number): string {
+
+    return 'Rp ' + Number(v).toLocaleString('id-ID');
+  }
+
+  // =========================
+  // 🧮 HITUNG PAJAK
+  // =========================
+  hitungPajak(v: number): number {
+
+    return Number(v) * 0.1;
+  }
+
+  // =========================
+  // 📈 PERSENTASE
+  // =========================
   getPersen(penghasilan: number): string {
-    return ((penghasilan / this.totalPenghasilan) * 100).toFixed(1) + '%';
+
+    if (this.totalPenghasilan === 0) {
+      return '0%';
+    }
+
+    return (
+      (Number(penghasilan) / this.totalPenghasilan) * 100
+    ).toFixed(1) + '%';
   }
+
 }

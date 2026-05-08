@@ -15,6 +15,7 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { WajibPajakComponent } from './pages/wajib-pajak/wajib-pajak.component';
 import { LaporanComponent } from './pages/laporan/laporan.component';
+import { LoginComponent } from './pages/login/login.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { LaporanComponent } from './pages/laporan/laporan.component';
     NavbarComponent,
     DashboardComponent,
     WajibPajakComponent,
-    LaporanComponent
+    LaporanComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
